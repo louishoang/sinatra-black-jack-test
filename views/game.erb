@@ -1,0 +1,51 @@
+<h1> BlackJack</h1>
+
+Welcome, <%= session[:player_name] %>.
+<br><br>
+
+<div class ="well">
+  <h4> Dealer's cards: </h4>
+
+
+    <% session[:dealer_cards].each do |card| %>
+      <%= card_image(card)%>
+    <% end %>
+
+    <% if @show_dealer_hit_button %>
+      <p>
+        <h5> Dealer has <%= calculate_total(session[:dealer_cards]) %> </h5>
+        <form action='/game/dealer/hit' method='post'>
+          <input type='submit' value='Click to see dealer card &rarr;'  class='btn btn-primary'>
+      </p>
+    <% end %>
+
+</div>
+
+
+<div class ="well">
+  <h4> Player's cards: </h4>
+
+
+    <% session[:player_cards].each do |card| %>
+      <%= card_image(card) %>
+    <% end %>
+
+
+</div>
+
+<p>
+  What would you like to do? <br>
+  <%= session[:player_name] %> has :
+  <%= calculate_total(session[:player_cards]) %> points.
+  <% if @show_hit_or_stay_button == true %>
+    <form id="hit_form" action="/game/player/hit" method="post">
+      <input type="submit" class="btn btn-success" value="Hit"/>
+    </form>
+    <form id="stay_form" action="/game/player/stay" method="post">
+      <input type="submit" class="btn btn-warning" value="Stay"/>
+    </form>
+  <% end %>
+</p>
+
+
+
